@@ -1,0 +1,201 @@
+.mainContent {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainText {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 15px;
+  color: white;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.subHeading {
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.slider {
+  width: 100%;
+  min-height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider > div > div {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sinlgeContent {
+  width: 100%;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sliderContent {
+  display: block;
+  animation: appear 1000ms ease-in-out forwards;
+}
+
+.slideOut {
+  display: block;
+  animation: disappear 1000ms ease-in-out forwards;
+}
+
+.mainImage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainImage img {
+  border-radius: 50%;
+  width: 80%;
+  height: 300px;
+}
+
+.sliderProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 4px;
+}
+.circle {
+  position: relative;
+  overflow: hidden;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.active::before,
+.lastActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.active::before {
+  animation: makeActive 500ms ease-in-out forwards;
+}
+
+.lastActive::before {
+  animation: makeInactive 500ms ease-in-out forwards;
+}
+
+@media (max-width: 768px) {
+  .mainText {
+    padding: 10px;
+  }
+
+  .mainImage img {
+    width: 80%;
+    height: 100%;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .subHeading {
+    font-size: 16px;
+  }
+
+  .slider > div > div {
+    font-size: 18px;
+  }
+
+  .circle {
+    height: 8px;
+    width: 8px;
+  }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .mainContent {
+    flex-direction: column-reverse;
+  }
+
+  .slider {
+    min-height: 70px;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .mainImage img {
+    height: 80%;
+  }
+
+  .mainText {
+    padding: 5px;
+  }
+
+  .slider {
+    min-height: 80px;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translate(50%, -50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-150%, -50%);
+    display: none;
+  }
+}
+
+@keyframes makeActive {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes makeInactive {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

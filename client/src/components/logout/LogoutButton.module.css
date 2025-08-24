@@ -1,0 +1,29 @@
+.logoutBtn {
+    border: none;
+    cursor: pointer;
+    width: 78px;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    background-color: #dc3545;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+    font-weight: 400;
+    text-align: center;
+    border-radius: 0.25rem;
+    color: white;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.logoutBtn:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .logoutBtn {
+        width: 60px;
+        height: 30px;
+        font-size: 0.875rem;
+        padding: 4px 8px;
+    }
+}
