@@ -3,25 +3,86 @@ import React, { useEffect, useState } from "react";
 import { getAssociatedGroups } from "../../../apiCalls/getAssociatedGroups";
 import { AssociatedGroupsType } from "../../../apiCalls/types";
 
+import { RootState } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setIsGroupDetailsModalOpen } from "../../../redux/slice";
+
+import dropdown from "../../../assets/groupList/dropdown.png";
+
+import styles from "./GroupsList.module.css";
+
 const GroupsList: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [groupsData, setGroupsData] = useState<AssociatedGroupsType[]>([]);
+  const [expanded, setExpanded] = useState<boolean[]>([]);
+  const isGroupDetailsModalOpen = useAppSelector(
+    (state: RootState) => state.appState.isGroupDetailsModalOpen
+  );
 
   const handleGetGroups = async () => {
     const groupsData = await getAssociatedGroups();
     setGroupsData(groupsData);
-  }
+  };
 
   useEffect(() => {
-    handleGetGroups();
-  }, []);
-  
+    if (isGroupDetailsModalOpen) {
+      handleGetGroups();
+    }
+  }, [isGroupDetailsModalOpen]);
+
+  useEffect(() => {
+    setExpanded(new Array(groupsData.length).fill(false));
+  }, [groupsData]);
+
+  if (!isGroupDetailsModalOpen) return null;
   return (
-    <div>
-      {groupsData.map((group) => {
-        return <div key={group.groupId}>{group.groupName}</div>;
-      })}
+    <div
+      className={styles.groupList}
+      onClick={() => dispatch(setIsGroupDetailsModalOpen(false))}
+    >
+      <div
+        className={styles.modal}
+        onClick={(event: React.MouseEvent<HTMLDivElement>) =>
+          event.stopPropagation()
+        }
+      >
+        <div className={styles.groupListContainer}>
+          {groupsData.map((group, index) => {
+            return (
+              <div key={group.id} className={styles.groupItem}>
+                <div className={styles.preview}>
+                  <span>{group.groupName}</span>
+                  <span>
+                    <img
+                      src={dropdown}
+                      alt="expand"
+                      className={`${
+                        expanded[index] ? styles.expand : styles.collapse
+                      }`}
+                      onClick={() =>
+                        setExpanded((prev) =>
+                          prev.map((val, i) => (i === index ? !val : val))
+                        )
+                      }
+                    />
+                  </span>
+                </div>
+                {expanded[index] && (
+                  <div className={styles.detail}>
+                    <span>{group.owner}</span>
+                    <span>{group.secretCode}</span>
+                    <span>
+                      <button className={styles.getInBtn}>GET IN</button>
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default GroupsList;

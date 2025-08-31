@@ -77,9 +77,8 @@ public class GroupsService {
         ObjectId userId = userRepository.findByUsername(username).getId();
         Groups groups = groupsRepository.findBySecretCode(secretCode)
                 .orElseThrow(() -> new RuntimeException("Group not found with this secret code"));
-        boolean alreadyJoined = groups.getMembersIds().contains(userId);
-        if (alreadyJoined) {
-            throw new RuntimeException("User alredy exist in the group");
+        if (groups.getMembersIds().contains(userId)) {
+            throw new RuntimeException("User already exist in the group");
         }
         groups.getMembersIds().add(userId);
         return groupsRepository.save(groups);

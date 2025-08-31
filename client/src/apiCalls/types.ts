@@ -1,5 +1,5 @@
 export interface AssociatedGroupsType {
-    groupId: string;
+    id: string;
     groupName: string;
     repoName: string;
     owner: string;
