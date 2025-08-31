@@ -20,7 +20,7 @@ export const getAssociatedGroups = async (): Promise<
     }
 
     const data = await response.json();
-    return data.groups || [];
+    return data || [];
   } catch (error) {
     console.error("Failed to fetch associated groups:", error);
     throw error;

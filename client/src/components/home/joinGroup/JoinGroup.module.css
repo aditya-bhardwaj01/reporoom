@@ -1,0 +1,58 @@
+.joinGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1px;
+}
+
+.inputBox {
+  box-sizing: border-box;
+  width: 100px;
+  font-size: 12px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 5px;
+  background-color: #adadad;
+}
+
+.inputBox:focus {
+  outline: none;
+  border-bottom: 1px solid #008000;
+}
+
+.joinBtn {
+  width: 32px;
+  height: 26px;
+  font-size: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+
+  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.joinBtn:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+    0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.joinBtn_disabled {
+  cursor: not-allowed;
+}
+
+.processingImg {
+  height: 10px;
+  width: 10px;
+}

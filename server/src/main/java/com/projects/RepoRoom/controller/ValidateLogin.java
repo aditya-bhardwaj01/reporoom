@@ -18,7 +18,7 @@ public class ValidateLogin {
 
         Map<String, Object> userInfo = Map.of(
                 "username", Optional.ofNullable(principal.getAttribute("login")).orElse("N/A"),
-                "name", Optional.ofNullable(principal.getAttribute("name")).orElse("N/A"),
+                "name", Optional.ofNullable(principal.getAttribute("name")).orElse(principal.getAttribute("login")),
                 "avatar_url", Optional.ofNullable(principal.getAttribute("avatar_url")).orElse("N/A"),
                 "profile_url", Optional.ofNullable(principal.getAttribute("html_url")).orElse("N/A"),
                 "followers", Optional.ofNullable(principal.getAttribute("followers")).orElse(0),

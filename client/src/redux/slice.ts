@@ -7,6 +7,7 @@ interface stateType {
   loading: boolean;
   isDarkMode: boolean;
   isCreateGroupModalOpen: boolean;
+  isGroupDetailsModalOpen?: boolean;
   myRepos: string[];
   areReposFetched: boolean;
   selectedRepo: string | null;
@@ -18,6 +19,7 @@ const initialState: stateType = {
   loading: true,
   isDarkMode: true,
   isCreateGroupModalOpen: false,
+  isGroupDetailsModalOpen: false,
   myRepos: [],
   areReposFetched: false,
   selectedRepo: null,
@@ -40,6 +42,9 @@ const applicationSlice = createSlice({
     setIsCreateGroupModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isCreateGroupModalOpen = action.payload;
     },
+    setIsGroupDetailsModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isGroupDetailsModalOpen = action.payload;
+    },
     setMyRepos: (state, action: PayloadAction<string[]>) => {
       state.myRepos = action.payload;
     },
@@ -60,6 +65,7 @@ export const {
   setLoading, 
   setIsDarkMode, 
   setIsCreateGroupModalOpen,
+  setIsGroupDetailsModalOpen,
   setMyRepos,
   setAreReposFetched,
   setSelectedRepo,

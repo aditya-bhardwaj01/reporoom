@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/groups")
@@ -40,5 +42,18 @@ public class GroupsController {
 
         List<Groups> associatedGroups = groupsService.getAssociatedGroups(username);
         return ResponseEntity.ok(associatedGroups); // Shortcut for 200 OK
+    }
+
+    @PostMapping("/join-group")
+    public ResponseEntity<?> joinGroup(OAuth2AuthenticationToken authenticationToken, @RequestBody Map<String,String> body) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        String code = body.get("secretCode");
+        try {
+            Groups group = groupsService.joinGroup(code, username);
+            return ResponseEntity.ok(group);
+        } catch (RuntimeException error) {
+            return ResponseEntity.badRequest().body(error);
+        }
     }
 }

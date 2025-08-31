@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,7 +26,7 @@ public class User {
     @NonNull
     private String name;
 
-    @Indexed(unique = true)
+//    @Indexed(unique = true)
     private String email;
 
     private String avatar_url;

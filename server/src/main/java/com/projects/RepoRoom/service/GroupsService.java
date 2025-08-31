@@ -7,9 +7,11 @@ import com.projects.RepoRoom.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupsService {
@@ -27,7 +29,7 @@ public class GroupsService {
     }
 
     private String generateRandomCode() {
-        String characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789@#$";
+        String characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         SecureRandom random = new SecureRandom();
         while (true) {
             StringBuilder code = new StringBuilder(secretCodeLength);
@@ -69,5 +71,17 @@ public class GroupsService {
     public List<Groups> getAssociatedGroups(String username) {
         ObjectId memberId = userRepository.findByUsername(username).getId();
         return groupsRepository.findByMembersIdsContaining(memberId);
+    }
+
+    public Groups joinGroup(String secretCode, String username) {
+        ObjectId userId = userRepository.findByUsername(username).getId();
+        Groups groups = groupsRepository.findBySecretCode(secretCode)
+                .orElseThrow(() -> new RuntimeException("Group not found with this secret code"));
+        boolean alreadyJoined = groups.getMembersIds().contains(userId);
+        if (alreadyJoined) {
+            throw new RuntimeException("User alredy exist in the group");
+        }
+        groups.getMembersIds().add(userId);
+        return groupsRepository.save(groups);
     }
 }

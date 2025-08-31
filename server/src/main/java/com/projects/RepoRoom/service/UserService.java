@@ -18,7 +18,8 @@ public class UserService {
         User existingUser = userRepository.findByUsername(username);
 
         if (existingUser != null) {
-            existingUser.setName(oauthUser.getAttribute("name"));
+            existingUser.setName(oauthUser.getAttribute("name") != null ?
+                    oauthUser.getAttribute("name") : username);
             existingUser.setEmail(email);
             existingUser.setAvatar_url(oauthUser.getAttribute("avatar_url"));
             existingUser.setProfile_url(oauthUser.getAttribute("html_url"));
@@ -26,8 +27,9 @@ public class UserService {
         } else {
             User newUser = User.builder()
                     .username(username)
-                    .name(oauthUser.getAttribute("name"))
-                    .email(email)
+                    .name(oauthUser.getAttribute("name") != null ?
+                            oauthUser.getAttribute("name") : username)
+                    .email(email == null ? "email" : null)
                     .avatar_url(oauthUser.getAttribute("avatar_url"))
                     .profile_url(oauthUser.getAttribute("html_url"))
                     .followers(oauthUser.getAttribute("followers") != null ?
@@ -40,9 +42,5 @@ public class UserService {
 
             return userRepository.save(newUser);
         }
-    }
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
     }
 }

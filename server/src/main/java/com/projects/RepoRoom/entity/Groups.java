@@ -28,7 +28,8 @@ public class Groups {
     @NonNull
     private String owner;
 
-    @NonNull String secretCode;
+    @NonNull
+    private String secretCode;
 
     @NonNull
     private List<ObjectId> membersIds;
