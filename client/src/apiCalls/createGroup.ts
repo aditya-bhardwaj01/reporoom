@@ -1,5 +1,5 @@
 import { BASE_URL } from "../config";
-import { Group } from "./types";
+import { Group } from "../redux/type";
 
 export const createGroup = async (groupName: string, repo: string): Promise<Group> => {
   try {

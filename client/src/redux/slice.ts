@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Branch, GitHubPullRequest, User } from "./type";
-import { Group } from "../apiCalls/types";
+import { Branch, GitHubPullRequest, Group, GroupWithMemberDetails, ModalType, User } from "./type";
 
 interface stateType {
   user: User | null;
@@ -15,6 +14,8 @@ interface stateType {
   branches: Branch[];
   selectedBranch: string | null;
   pullRequests: GitHubPullRequest[];
+  groupDetail: GroupWithMemberDetails | null;
+  modalType: ModalType;
 }
 
 const initialState: stateType = {
@@ -30,6 +31,8 @@ const initialState: stateType = {
   branches: [],
   selectedBranch: null,
   pullRequests: [],
+  groupDetail: null,
+  modalType: ModalType.NONE,
 };
 
 const applicationSlice = createSlice({
@@ -72,6 +75,12 @@ const applicationSlice = createSlice({
     setPullRequests: (state, action: PayloadAction<GitHubPullRequest[]>) => {
       state.pullRequests = action.payload;
     },
+    setGroupDetails: (state, action: PayloadAction<GroupWithMemberDetails | null>) => {
+      state.groupDetail = action.payload;
+    },
+    setModalType: (state, action: PayloadAction<ModalType>) => {
+      state.modalType = action.payload;
+    }
   },
 });
 
@@ -88,5 +97,7 @@ export const {
   setBranches,
   setSelectedBranch,
   setPullRequests,
+  setGroupDetails,
+  setModalType,
 } = applicationSlice.actions;
 export default applicationSlice.reducer;

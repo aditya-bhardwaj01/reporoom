@@ -1,6 +1,7 @@
 package com.projects.RepoRoom.controller;
 
 import com.projects.RepoRoom.dto.GithubBranchDto;
+import com.projects.RepoRoom.dto.GroupDetailsDto;
 import com.projects.RepoRoom.dto.PullRequestsDto;
 import com.projects.RepoRoom.entity.Groups;
 import com.projects.RepoRoom.service.GitHubService;
@@ -39,7 +40,7 @@ public class GitHubController {
         OAuth2User principal = authenticationToken.getPrincipal();
         String username = principal.getAttribute("login");
         try {
-            Groups group = groupsService.getSingleGroup(username, groupId);
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
             String owner = group.getOwner();
             String repoName = group.getRepoName();
             return gitHubService.getListOfBranchesOnARepo(authenticationToken, owner, repoName);
@@ -58,7 +59,7 @@ public class GitHubController {
         OAuth2User principal = authenticationToken.getPrincipal();
         String username = principal.getAttribute("login");
         try {
-            Groups group = groupsService.getSingleGroup(username, groupId);
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
             String owner = group.getOwner();
             String repoName = group.getRepoName();
             return gitHubService.getListOfPullRequests(authenticationToken, owner, repoName);

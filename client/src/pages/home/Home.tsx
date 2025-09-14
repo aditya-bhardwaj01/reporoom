@@ -6,7 +6,7 @@ import HomeNavBar from "../../components/common/navbar/HomeNavBar";
 import ReposSection from "../../components/home/reposSection/ReposSection";
 import CreateGroupModal from "../../components/home/createGroupModal/CreateGroupModal";
 import GroupsList from "../../components/home/groupsList/GroupsList";
-import { setBranches, setSelectedBranch } from "../../redux/slice";
+import { setBranches, setGroupDetails, setPullRequests, setSelectedBranch } from "../../redux/slice";
 
 import styles from "./Home.module.css";
 
@@ -19,7 +19,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     dispatch(setBranches([]));
     dispatch(setSelectedBranch(null));
-  }, []);
+    dispatch(setPullRequests([]));
+    dispatch(setGroupDetails(null));
+  }, [dispatch]);
 
   const mods = useModifiers("homePage", { isDarkMode }, styles, true);
 

@@ -1,9 +1,13 @@
 .dropdown {
   position: relative;
   width: 200px;
+  max-width: 200px;
 }
 
 .selected {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -34,9 +38,37 @@
 .item {
   padding: 10px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item:hover {
-  background: green;
+  background: rgba(0, 128, 0, 0.5);
+}
+
+@media (max-width: 500px) {
+  .dropdown {
+    max-width: 160px;
+  }
+  .selected {
+    padding: 5px 10px;
+  }
+  .menu {
+    padding: 3px;
+  }
+  .item {
+    padding: 5px;
+  }
+
+  .selected, .menu, .item {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .dropdown {
+    width: 125px;
+  }
 }

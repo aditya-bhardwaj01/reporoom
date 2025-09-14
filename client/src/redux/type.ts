@@ -9,6 +9,35 @@ export interface User {
   public_repos?: number;
 }
 
+export interface AssociatedGroupsType {
+    id: string;
+    groupName: string;
+    repoName: string;
+    owner: string;
+    secretCode: string;
+    memberIds: string[];
+}
+
+export interface Group {
+    id: string;
+    groupName: string;
+    repoName: string;
+    owner: string;
+    secretCode: string;
+    memberIds: string[];
+}
+
+export interface GroupWithMemberDetails extends Omit<Group, "memberIds"> {
+  members: {
+    memberId: string;
+    memberName: string;
+    avatar_url: string;
+    profile_url: string;
+    followers: number;
+    following: number;
+  }[];
+}
+
 export type Branch = { name: string };
 
 export interface GitHubPullRequest {
@@ -41,4 +70,10 @@ export interface RequestedReviewer {
 
 export interface BranchInfo {
   ref: string;
+}
+
+export enum ModalType {
+  NONE = "none",
+  MEMBERS = "members",
+  ACTIONS = "actions",
 }

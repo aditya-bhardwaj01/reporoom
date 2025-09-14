@@ -1,5 +1,7 @@
 package com.projects.RepoRoom.service;
 
+import com.projects.RepoRoom.dto.GroupDetailsDto;
+import com.projects.RepoRoom.dto.MemberDetailsDto;
 import com.projects.RepoRoom.entity.Groups;
 import com.projects.RepoRoom.entity.User;
 import com.projects.RepoRoom.repository.GroupsRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -82,7 +85,7 @@ public class GroupsService {
         return groupsRepository.save(groups);
     }
 
-    public Groups getSingleGroup(String username, String groupId) {
+    public GroupDetailsDto getSingleGroup(String username, String groupId) {
         ObjectId userId = userRepository.findByUsername(username).getId();
         ObjectId objectId = new ObjectId(groupId);
         Groups group = groupsRepository.findById(objectId)
@@ -90,6 +93,28 @@ public class GroupsService {
         if (!group.getMembersIds().contains(userId)) {
             throw new RuntimeException("Unauthorised request");
         }
-        return group;
+        List<MemberDetailsDto> memberDetailsDtos = group.getMembersIds().stream()
+                .map(memberId -> {
+                    User user = userRepository.findById(memberId)
+                            .orElseThrow(() -> new RuntimeException("User not found with id: " + memberId));
+
+                    return MemberDetailsDto.builder()
+                            .memberId(memberId)
+                            .memberName(user.getName())
+                            .avatar_url(user.getAvatar_url())
+                            .profile_url(user.getProfile_url())
+                            .followers(user.getFollowers())
+                            .following(user.getFollowing())
+                            .build();
+                })
+                .toList();
+        return GroupDetailsDto.builder()
+                .id(group.getId())
+                .groupName(group.getGroupName())
+                .repoName(group.getRepoName())
+                .owner(group.getOwner())
+                .secretCode(group.getSecretCode())
+                .members(memberDetailsDtos)
+                .build();
     }
 }

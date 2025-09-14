@@ -5,10 +5,18 @@ import HomeNavBar from "../../components/common/navbar/HomeNavBar";
 import { useParams } from "react-router";
 import { getBranches } from "../../apiCalls/getBranches";
 import BranchDropDown from "../../components/teamsChat/branchDropdown/BranchDropDown";
-import { setBranches, setPullRequests } from "../../redux/slice";
+import {
+  setBranches,
+  setGroupDetails,
+  setPullRequests,
+} from "../../redux/slice";
+import { getPullRequests } from "../../apiCalls/getPullRequests";
+import { getSingleGroup } from "../../apiCalls/getSingleGroup";
+import ViewMembers from "../../components/teamsChat/viewMembers/ViewMembers";
+import ActionsBtn from "../../components/teamsChat/actionsBtn/ActionsBtn";
+import Modal from "../../components/teamsChat/modal/Modal";
 
 import styles from "./TeamsChat.module.css";
-import { getPullRequests } from "../../apiCalls/getPullRequests";
 
 const TeamsChat: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,28 +24,41 @@ const TeamsChat: React.FC = () => {
   const isDarkMode = useAppSelector((state) => state.appState.isDarkMode);
   const mods = useModifiers("teamsChat", { isDarkMode }, styles, true);
 
-  const handleGetSingleGroup = useCallback(async() => {
-    const branches = await getBranches(groupId || "");
-    console.log(branches);
-    dispatch(setBranches(branches));
-    const pullRequests = await getPullRequests(groupId || "");
-    console.log(pullRequests);
-    dispatch(setPullRequests(pullRequests));
-  }, [dispatch, groupId])
+  const handleApiCalls = useCallback(async () => {
+    try {
+      const [groupDetail, branches, pullRequests] = await Promise.all([
+        getSingleGroup(groupId || ""),
+        getBranches(groupId || ""),
+        getPullRequests(groupId || ""),
+      ]);
+
+      dispatch(setGroupDetails(groupDetail));
+      dispatch(setBranches(branches));
+      dispatch(setPullRequests(pullRequests));
+    } catch (error) {
+      console.error("Error fetching group data:", error);
+    }
+  }, [dispatch, groupId]);
 
   useEffect(() => {
-    handleGetSingleGroup();
-  }, [handleGetSingleGroup]);
-
+    handleApiCalls();
+  }, [handleApiCalls]);
 
   return (
     <div className={mods}>
+      <Modal />
       <div className={styles.navBar}>
         <HomeNavBar currentPage={"chat"} />
       </div>
       <div className={styles.mainSection}>
-        <div className={styles.dropDown}>
-          <BranchDropDown  />
+        <div className={styles.topBar}>
+          <div className={styles.leftBar}>
+            <BranchDropDown />
+          </div>
+          <div className={styles.rightBar}>
+            <ActionsBtn />
+            <ViewMembers />
+          </div>
         </div>
       </div>
     </div>

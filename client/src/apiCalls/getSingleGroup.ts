@@ -1,7 +1,7 @@
 import { BASE_URL } from "../config";
-import { Group } from "./types";
+import { GroupWithMemberDetails } from "../redux/type";
 
-export const getSingleGroup = async (groupId: string): Promise<Group> => {
+export const getSingleGroup = async (groupId: string): Promise<GroupWithMemberDetails> => {
     try {
     const response = await fetch(`${BASE_URL}/groups/single-group/${groupId}`, {
       credentials: "include",

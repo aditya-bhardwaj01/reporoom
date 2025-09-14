@@ -1,6 +1,7 @@
 package com.projects.RepoRoom.controller;
 
 import com.projects.RepoRoom.dto.CreateGroupDto;
+import com.projects.RepoRoom.dto.GroupDetailsDto;
 import com.projects.RepoRoom.entity.Groups;
 import com.projects.RepoRoom.service.GroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class GroupsController {
         OAuth2User principal = authenticationToken.getPrincipal();
         String username = principal.getAttribute("login");
         try {
-            Groups groups = groupsService.getSingleGroup(username, groupId);
+            GroupDetailsDto groups = groupsService.getSingleGroup(username, groupId);
             return ResponseEntity.ok(groups);
         } catch (RuntimeException error) {
             return ResponseEntity.badRequest().body(error);

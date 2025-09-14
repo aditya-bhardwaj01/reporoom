@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { getAssociatedGroups } from "../../../apiCalls/getAssociatedGroups";
-import { AssociatedGroupsType } from "../../../apiCalls/types";
 
 import { RootState } from "../../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { setIsGroupDetailsModalOpen } from "../../../redux/slice";
+import { AssociatedGroupsType } from "../../../redux/type";
 
 import dropdown from "../../../assets/groupList/dropdown.png";
 
 import styles from "./GroupsList.module.css";
-import { useNavigate } from "react-router";
 
 const GroupsList: React.FC = () => {
   const navigate = useNavigate();

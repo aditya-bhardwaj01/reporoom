@@ -1,5 +1,5 @@
 import { BASE_URL } from "../config";
-import { AssociatedGroupsType } from "./types";
+import { AssociatedGroupsType } from "../redux/type";
 
 export const getAssociatedGroups = async (): Promise<
   AssociatedGroupsType[]
