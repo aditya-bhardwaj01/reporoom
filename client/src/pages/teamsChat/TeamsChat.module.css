@@ -1,0 +1,37 @@
+.teamsChat {
+  --navBarHeight: 60px;
+  --navBarGapFromTop: 5px;
+  height: 100%;
+  width: 100%;
+  background-color: #eeeeee;
+  color: black;
+}
+
+.teamsChat_isDarkMode {
+  background-color: #252525;
+  color: white;
+}
+
+.navBar {
+  position: absolute;
+  top: 5px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+.mainSection {
+  box-sizing: border-box;
+  position: absolute;
+  height: calc(100% - (var(--navBarHeight) + var(--navBarGapFromTop)));
+  width: 100%;
+  padding: 20px 10px;
+  top: calc(var(--navBarHeight) + var(--navBarGapFromTop));
+}
+
+.dropDown {
+  
+}

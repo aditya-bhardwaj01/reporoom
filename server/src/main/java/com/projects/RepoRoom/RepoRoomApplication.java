@@ -9,4 +9,4 @@ public class RepoRoomApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RepoRoomApplication.class, args);
 	}
-} 
+}

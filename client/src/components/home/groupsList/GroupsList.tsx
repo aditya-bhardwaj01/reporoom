@@ -10,8 +10,10 @@ import { setIsGroupDetailsModalOpen } from "../../../redux/slice";
 import dropdown from "../../../assets/groupList/dropdown.png";
 
 import styles from "./GroupsList.module.css";
+import { useNavigate } from "react-router";
 
 const GroupsList: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [groupsData, setGroupsData] = useState<AssociatedGroupsType[]>([]);
   const [expanded, setExpanded] = useState<boolean[]>([]);
@@ -22,6 +24,11 @@ const GroupsList: React.FC = () => {
   const handleGetGroups = async () => {
     const groupsData = await getAssociatedGroups();
     setGroupsData(groupsData);
+  };
+
+  const handleJoinGroup = (groupId: string) => {
+    navigate(`/team/${groupId}`);
+    dispatch(setIsGroupDetailsModalOpen(false));
   };
 
   useEffect(() => {
@@ -72,7 +79,12 @@ const GroupsList: React.FC = () => {
                     <span>{group.owner}</span>
                     <span>{group.secretCode}</span>
                     <span>
-                      <button className={styles.getInBtn}>GET IN</button>
+                      <button
+                        className={styles.getInBtn}
+                        onClick={() => handleJoinGroup(group.id)}
+                      >
+                        GET IN
+                      </button>
                     </span>
                   </div>
                 )}

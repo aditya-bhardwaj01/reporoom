@@ -7,11 +7,9 @@ import com.projects.RepoRoom.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GroupsService {
@@ -82,5 +80,16 @@ public class GroupsService {
         }
         groups.getMembersIds().add(userId);
         return groupsRepository.save(groups);
+    }
+
+    public Groups getSingleGroup(String username, String groupId) {
+        ObjectId userId = userRepository.findByUsername(username).getId();
+        ObjectId objectId = new ObjectId(groupId);
+        Groups group = groupsRepository.findById(objectId)
+                .orElseThrow(() -> new RuntimeException("Invalid group details"));
+        if (!group.getMembersIds().contains(userId)) {
+            throw new RuntimeException("Unauthorised request");
+        }
+        return group;
     }
 }

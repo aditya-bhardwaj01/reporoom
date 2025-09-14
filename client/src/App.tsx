@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import OAuthRedirectHandler from "./pages/redirect/OAuthRedirectHandler";
+import TeamsChat from "./pages/teamsChat/TeamsChat";
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,14 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/team/:groupId"
+          element={
+            <ProtectedRoute>
+              <TeamsChat />
             </ProtectedRoute>
           }
         />

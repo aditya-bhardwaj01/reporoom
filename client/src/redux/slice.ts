@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "./type";
+import { Branch, GitHubPullRequest, User } from "./type";
 import { Group } from "../apiCalls/types";
 
 interface stateType {
@@ -12,6 +12,9 @@ interface stateType {
   areReposFetched: boolean;
   selectedRepo: string | null;
   groupsList: Group[];
+  branches: Branch[];
+  selectedBranch: string | null;
+  pullRequests: GitHubPullRequest[];
 }
 
 const initialState: stateType = {
@@ -24,6 +27,9 @@ const initialState: stateType = {
   areReposFetched: false,
   selectedRepo: null,
   groupsList: [],
+  branches: [],
+  selectedBranch: null,
+  pullRequests: [],
 };
 
 const applicationSlice = createSlice({
@@ -56,7 +62,16 @@ const applicationSlice = createSlice({
     },
     setGroupsList: (state, action: PayloadAction<Group[]>) => {
       state.groupsList = action.payload;
-    }
+    },
+    setBranches: (state, action: PayloadAction<Branch[]>) => {
+      state.branches = action.payload;
+    },
+    setSelectedBranch: (state, action: PayloadAction<string | null>) => {
+      state.selectedBranch = action.payload;
+    },
+    setPullRequests: (state, action: PayloadAction<GitHubPullRequest[]>) => {
+      state.pullRequests = action.payload;
+    },
   },
 });
 
@@ -70,5 +85,8 @@ export const {
   setAreReposFetched,
   setSelectedRepo,
   setGroupsList,
+  setBranches,
+  setSelectedBranch,
+  setPullRequests,
 } = applicationSlice.actions;
 export default applicationSlice.reducer;

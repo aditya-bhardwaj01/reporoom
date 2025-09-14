@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -52,6 +51,18 @@ public class GroupsController {
         try {
             Groups group = groupsService.joinGroup(code, username);
             return ResponseEntity.ok(group);
+        } catch (RuntimeException error) {
+            return ResponseEntity.badRequest().body(error);
+        }
+    }
+
+    @GetMapping("single-group/{groupId}")
+    public ResponseEntity<?> getSingleGroup(OAuth2AuthenticationToken authenticationToken, @PathVariable String groupId) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        try {
+            Groups groups = groupsService.getSingleGroup(username, groupId);
+            return ResponseEntity.ok(groups);
         } catch (RuntimeException error) {
             return ResponseEntity.badRequest().body(error);
         }

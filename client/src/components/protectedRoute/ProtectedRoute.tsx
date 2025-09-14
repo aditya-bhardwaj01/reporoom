@@ -24,7 +24,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       const data = await res.json();
       dispatch(setLoading(false));
       dispatch(setUser(data));
-      navigate("/home");
     } else {
       navigate("/login");
     }

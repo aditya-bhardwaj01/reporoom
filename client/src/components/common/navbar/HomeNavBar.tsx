@@ -1,13 +1,19 @@
 import React from "react";
 import LogoutButton from "../../logout/LogoutButton";
 import ColorModeToggler from "../colorModeToggler/ColorModeToggler";
-
-import styles from "./HomeNavBar.module.css";
 import { useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { useModifiers } from "../../../hooks/useModifiers";
-import JoinGroup from "../joinGroup/JoinGroup";
-const HomeNavBar: React.FC = () => {
+import JoinGroup from "../../home/joinGroup/JoinGroup";
+import LeaveGroup from "../../teamsChat/leaveGroupBtn/LeaveGroup";
+
+import styles from "./HomeNavBar.module.css";
+
+interface HomeNavBarProps {
+  currentPage?: string;
+}
+
+const HomeNavBar: React.FC<HomeNavBarProps> = ({ currentPage }) => {
   const isDarkMode = useAppSelector(
     (state: RootState) => state.appState.isDarkMode
   );
@@ -27,10 +33,10 @@ const HomeNavBar: React.FC = () => {
       </div>
       <div className={styles.buttons}>   
         <div className={styles.joinGroup}>
-        <JoinGroup />
+        {currentPage !== 'chat' && <JoinGroup />}
       </div>     
         <ColorModeToggler />
-        <LogoutButton />
+        {currentPage === 'chat' ? <LeaveGroup /> : <LogoutButton />}
       </div>
     </div>
   );
