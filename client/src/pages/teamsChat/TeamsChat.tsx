@@ -15,6 +15,7 @@ import { getSingleGroup } from "../../apiCalls/getSingleGroup";
 import ViewMembers from "../../components/teamsChat/viewMembers/ViewMembers";
 import ActionsBtn from "../../components/teamsChat/actionsBtn/ActionsBtn";
 import Modal from "../../components/teamsChat/modal/Modal";
+import ContentArea from "../../components/teamsChat/contentArea/ContentArea";
 
 import styles from "./TeamsChat.module.css";
 
@@ -59,6 +60,9 @@ const TeamsChat: React.FC = () => {
             <ActionsBtn />
             <ViewMembers />
           </div>
+        </div>
+        <div className={styles.contentArea}>
+          <ContentArea />
         </div>
       </div>
     </div>

@@ -1,0 +1,86 @@
+.contentArea,
+.pullRequest,
+.chatArea {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.contentArea {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.viewToggler {
+  display: none;
+  position: absolute;
+}
+
+.viewToggler button {
+  font-size: 10px;
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #ff7e31, #e62c03);
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  height: 20px;
+  line-height: 0px;
+  outline: 0;
+  overflow: hidden;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 9;
+  border: 0;
+}
+
+.arrow {
+  position: relative;
+  bottom: 1px;
+}
+
+.pullRequest,
+.chatArea {
+  width: 50%;
+  padding: 10px;
+}
+
+.pullRequest {
+    background-color: red;
+}
+
+.chatArea {
+    background-color: green;
+}
+
+@media (max-width: 580px) {
+  .viewToggler {
+    display: block;
+    bottom: 0;
+  }
+  .viewToggler_showChat {
+    right: 0;
+  }
+  .viewToggler_showPR {
+    left: 0;
+  }
+  .pullRequest,
+  .chatArea {
+    width: 100%;
+  }
+  .pullRequest_showingChat {
+    display: none;
+  }
+  .chatArea_showingPR {
+    display: none;
+  }
+}

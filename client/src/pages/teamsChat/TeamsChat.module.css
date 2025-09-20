@@ -25,6 +25,7 @@
 }
 
 .mainSection {
+  /* background-color: green; */
   box-sizing: border-box;
   position: absolute;
   height: calc(100% - (var(--navBarHeight) + var(--navBarGapFromTop)));
@@ -46,7 +47,6 @@
 .rightBar {
   display: flex;
   gap: 30px;
-  /* background-color: brown; */
 }
 
 .leftBar {
@@ -55,7 +55,11 @@
 .rightBar {
   justify-content: flex-end;
   width: 80%;
-  /* background-color: green; */
+}
+
+.contentArea {
+  box-sizing: border-box;
+  height: calc(100% - 20px);
 }
 
 @media (max-width: 500px) {
