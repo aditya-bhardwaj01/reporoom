@@ -6,9 +6,11 @@
 }
 
 .contentArea {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   position: relative;
+  padding: 10px;
 }
 
 .viewToggler {
@@ -50,17 +52,42 @@
 
 .pullRequest,
 .chatArea {
-  width: 50%;
   padding: 10px;
+  overflow-y: auto;
 }
 
 .pullRequest {
-    background-color: red;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  /* border-right: none; */
+  border-radius: 10px;
+  width: 55%;
+}
+
+.contentArea_isDarkMode .pullRequest {
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .chatArea {
-    background-color: green;
+  position: relative;
+  left: 5px;
+  width: 45%;
+  border-radius: 10px;
+  box-shadow: 
+    rgba(0, 0, 0, 0.4) 15px 15px 30px -10px, 
+    rgba(0, 0, 0, 0.5) 0px 25px 45px -15px, 
+    rgba(255, 255, 255, 0.08) 5px 5px 15px 0px inset,
+    rgba(0, 0, 0, 0.6) -5px -5px 20px 0px inset;
 }
+
+@media (max-width: 700px) {
+  .pullRequest {
+    width: 50%;
+  }
+  .chatArea {
+    width: 50%;
+  }
+}
+
 
 @media (max-width: 580px) {
   .viewToggler {
@@ -76,6 +103,9 @@
   .pullRequest,
   .chatArea {
     width: 100%;
+  }
+  .chatArea {
+    left: 0;
   }
   .pullRequest_showingChat {
     display: none;

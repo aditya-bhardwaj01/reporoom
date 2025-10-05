@@ -2,6 +2,15 @@
   position: relative;
   width: 200px;
   max-width: 200px;
+  z-index: 10;
+}
+
+.dropdown .menu {
+  background-color: #252525;
+}
+
+.dropdown_lightMode .menu {
+  background-color: #eeeeee;
 }
 
 .selected {
@@ -23,6 +32,8 @@
   top: 100%;
   left: 0;
   right: 0;
+  max-height: 200px;
+  overflow-y: auto;
   background: transparent;
   border: 1px solid #ccc;
   border-radius: 8px;

@@ -1,0 +1,126 @@
+.singleCommit {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px 10px;
+  background-color: rgb(1, 4, 9, 0.4);
+  border-radius: 10px;
+  color: white;
+  transition: all, 0.3s;
+}
+
+.singleCommit_isLightMode {
+  background-color: rgb(1, 4, 9, 0.7);
+}
+
+.commitDetail {
+  cursor: pointer;
+}
+
+.message {
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.viewChanges {
+  font-size: 8px;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+  color: rgb(30, 215, 96, 0.6);
+  border: 1px solid rgb(30, 215, 96, 0.6);
+  cursor: pointer;
+  border-radius: 4px;
+  height: 20px;
+  margin-left: 10px;
+  width: fit-content;
+  transition: all, 0.3s;
+}
+
+.singleCommit_isLightMode .viewChanges {
+  color: rgb(30, 215, 96, 1);
+  border: 1px solid rgb(30, 215, 96, 1);
+}
+
+.viewChanges:hover {
+  background-color: rgb(128, 128, 128, 0.2);
+}
+
+.author,
+.committer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.author div,
+.committer div {
+  display: flex;
+  width: fit-content;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.425);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.author div:hover,
+.committer div:hover {
+  text-decoration: underline;
+}
+
+.profileType {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profilePic {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.codeChanges {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 400px;
+    width: 200px;
+    overflow: auto;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgb(13,17,23, 0.5);
+    width: 100%;
+}
+
+.stats {
+    display: flex;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.additions {
+    color: green;
+}
+
+.deletions {
+    color: red;
+}
+
+.diff {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.singleFile span {
+    font-size: 18px;
+    font-weight: bold;
+}

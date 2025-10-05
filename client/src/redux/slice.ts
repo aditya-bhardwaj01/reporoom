@@ -21,7 +21,7 @@ interface stateType {
 const initialState: stateType = {
   user: null,
   loading: true,
-  isDarkMode: true,
+  isDarkMode: false,
   isCreateGroupModalOpen: false,
   isGroupDetailsModalOpen: false,
   myRepos: [],

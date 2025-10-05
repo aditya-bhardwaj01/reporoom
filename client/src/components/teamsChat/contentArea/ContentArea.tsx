@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { useModifiers } from "../../../hooks/useModifiers";
 import PullRequests from "../pullRequests/PullRequests";
 import ChatArea from "../chatArea/ChatArea";
+import { useAppSelector } from "../../../redux/hooks";
 
 import styles from "./ContentArea.module.css";
 
 const ContentArea: React.FC = () => {
   const [showingPR, setShowingPR] = useState(true);
+  const isDarkMode = useAppSelector((state) => state.appState.isDarkMode);
+
+  const mods = useModifiers("contentArea", { isDarkMode }, styles, true);
 
   const togglerMods = useModifiers(
     "viewToggler",
@@ -27,7 +31,7 @@ const ContentArea: React.FC = () => {
   };
 
   return (
-    <div className={styles.contentArea}>
+    <div className={mods}>
       <div className={togglerMods} onClick={handleClick}>
         <button>
             {!showingPR ? <span className={styles.arrow}>&larr;</span> : null}

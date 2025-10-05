@@ -1,9 +1,6 @@
 package com.projects.RepoRoom.controller;
 
-import com.projects.RepoRoom.dto.GithubBranchDto;
-import com.projects.RepoRoom.dto.GroupDetailsDto;
-import com.projects.RepoRoom.dto.PullRequestsDto;
-import com.projects.RepoRoom.entity.Groups;
+import com.projects.RepoRoom.dto.*;
 import com.projects.RepoRoom.service.GitHubService;
 import com.projects.RepoRoom.service.GroupsService;
 import com.projects.RepoRoom.service.OAuth2TokenService;
@@ -68,6 +65,81 @@ public class GitHubController {
                     ? HttpStatus.NOT_FOUND
                     : HttpStatus.BAD_REQUEST;
 
+            throw new ResponseStatusException(status, "Unauthorized access or invalid request");
+        }
+    }
+
+    @GetMapping("/commits/{groupId}/{pullNumber}")
+    public Mono<List<CommitsDto>> getCommitsOnAPullRequest(OAuth2AuthenticationToken authenticationToken, @PathVariable String groupId, @PathVariable String pullNumber) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        try {
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
+            String owner = group.getOwner();
+            String repoName = group.getRepoName();
+            return gitHubService.getListOfCommitsOnPullRequest(authenticationToken, owner, repoName, pullNumber);
+        } catch (RuntimeException exception) {
+            HttpStatus status = exception.getMessage() != null && exception.getMessage().contains("Unauthorised request")
+                    ? HttpStatus.NOT_FOUND
+                    : HttpStatus.BAD_REQUEST;
+
+            throw new ResponseStatusException(status, "Unauthorized access or invalid request");
+        }
+    }
+
+    @GetMapping("/files/{groupId}/{pullNumber}")
+    public Mono<List<AffectedFilesDto>> getFilesAffectedInAPR(OAuth2AuthenticationToken authenticationToken,
+                                                              @PathVariable String groupId,
+                                                              @PathVariable String pullNumber) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        try {
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
+            String owner = group.getOwner();
+            String repoName = group.getRepoName();
+            return gitHubService.getFilesAffectedInAPullRequest(authenticationToken, owner, repoName, pullNumber);
+        } catch (RuntimeException exception) {
+            HttpStatus status = exception.getMessage() != null && exception.getMessage().contains("Unauthorised request")
+                    ? HttpStatus.NOT_FOUND
+                    : HttpStatus.BAD_REQUEST;
+            throw new ResponseStatusException(status, "Unauthorized access or invalid request");
+        }
+    }
+
+    @GetMapping("comments/{groupId}/{pullNumber}")
+    public Mono<List<CommentsDto>> getReviewCommentsOnPR(OAuth2AuthenticationToken authenticationToken,
+                                              @PathVariable String groupId,
+                                              @PathVariable String pullNumber) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        try {
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
+            String owner = group.getOwner();
+            String repoName = group.getRepoName();
+            return gitHubService.getReviewCommentsOnPR(authenticationToken, owner, repoName, pullNumber);
+        } catch (RuntimeException exception) {
+            HttpStatus status = exception.getMessage() != null && exception.getMessage().contains("Unauthorised request")
+                    ? HttpStatus.NOT_FOUND
+                    : HttpStatus.BAD_REQUEST;
+            throw new ResponseStatusException(status, "Unauthorized access or invalid request");
+        }
+    }
+
+    @GetMapping("reviews/{groupId}/{pullNumber}")
+    public Mono<List<ReviewsDto>> getReviewsOnAPR(OAuth2AuthenticationToken authenticationToken,
+                                        @PathVariable String groupId,
+                                        @PathVariable String pullNumber) {
+        OAuth2User principal = authenticationToken.getPrincipal();
+        String username = principal.getAttribute("login");
+        try {
+            GroupDetailsDto group = groupsService.getSingleGroup(username, groupId);
+            String owner = group.getOwner();
+            String repoName = group.getRepoName();
+            return gitHubService.getReviewsOnPR(authenticationToken, owner, repoName, pullNumber);
+        } catch (Exception exception) {
+            HttpStatus status = exception.getMessage() != null && exception.getMessage().contains("Unauthorised request")
+                    ? HttpStatus.NOT_FOUND
+                    : HttpStatus.BAD_REQUEST;
             throw new ResponseStatusException(status, "Unauthorized access or invalid request");
         }
     }

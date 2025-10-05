@@ -1,0 +1,102 @@
+.singlePullRequest {
+  background-color: #d3d4dc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  min-height: 50px;
+  padding: 5px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.singlePullRequest_isDarkMode {
+  background-color: #3c3837;
+}
+
+.pr_info_profile_pic {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+.first {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.firstTitle {
+  text-overflow: clip;
+}
+
+.firstAuthor {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.firstAuthor:hover {
+  text-decoration: underline;
+}
+
+.labels {
+  display: flex;
+  gap: 5px;
+}
+
+.singleLabel {
+  box-sizing: border-box;
+  background-color: rgba(0, 128, 0, 0.8);
+  color: white;
+  border-radius: 20px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.singlePullRequest_isDarkMode .singleLabel {
+  background-color: rgba(0, 128, 0, 0.6);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.buttons button {
+  cursor: pointer;
+  font-size: 12px;
+  border: none;
+  min-height: 16px;
+  border-radius: 4px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: rgba(255, 0, 0, 0.719);
+  color: white;
+  line-height: 0;
+}
+
+.buttons button:nth-child(2) {
+  background-color: rgba(0, 0, 255, 0.719);
+}
+
+.buttons button:nth-child(3) {
+  background-color: rgba(128, 98, 0, 0.719);
+}
+
+.buttons button:nth-child(4) {
+  background-color: rgba(0, 119, 128, 0.719);
+}
+
+.buttons button:nth-child(5) {
+  background-color: rgba(128, 0, 128, 0.719);
+}
+
+.buttons button:nth-child(6) {
+  background-color: rgba(128, 0, 0, 0.719);
+}

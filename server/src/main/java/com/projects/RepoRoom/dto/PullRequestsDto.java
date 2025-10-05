@@ -1,6 +1,6 @@
 package com.projects.RepoRoom.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,21 +14,27 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PullRequestsDto {
+    @JsonAlias("number")
+    private String pullNumber;
+    @JsonAlias("html_url")
     private String url;
     private String title;
     private String state;
     private List<Label> labels;
     private String body;
 
-    @JsonProperty("created_at")
+    @JsonAlias("created_at")
     private ZonedDateTime createdAt;
 
-    @JsonProperty("merged_at")
+    @JsonAlias("merged_at")
     private ZonedDateTime mergedAt;
+
+    @JsonAlias("user")
+    private Author author;
 
     private List<Assignee> assignees;
 
-    @JsonProperty("requested_reviewers")
+    @JsonAlias("requested_reviewers")
     private List<RequestedReviewer> requestedReviewers;
 
     // Branch information
@@ -48,9 +54,22 @@ public class PullRequestsDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Assignee {
-        private String url;
+    public static class Author {
+        @JsonAlias("html_url")
+        private String profileUrl;
         private String login;
+        private String avatar_url;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class Assignee {
+        @JsonAlias("html_url")
+        private String profileUrl;
+        private String login;
+        private String avatar_url;
     }
 
     @Data
@@ -58,8 +77,10 @@ public class PullRequestsDto {
     @NoArgsConstructor
     @Builder
     public static class RequestedReviewer {
-        private String url;
+        @JsonAlias("html_url")
+        private String profileUrl;
         private String login;
+        private String avatar_url;
     }
 
     @Data
